@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ae55aa06a27b94002aee91dcd9a5b5a3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioSource: {instanceID: 0}
+  - introMusic: {fileID: 8300000, guid: cdef2e036dfbb469ab78b2e430276ab0, type: 3}
+  - ghostNormalMusic: {fileID: 8300000, guid: 9ced9056cf40741e7866e6b864d2c386, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
