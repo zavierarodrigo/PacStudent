@@ -1,36 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tweener : MonoBehaviour
 {
-    private Tween activeTween;
+    private readonly List<Tween> activeTweens = new List<Tween>();
 
-    public bool IsTweening
+    public bool TweenExists(Transform target)
     {
-        get { return activeTween != null; }
+        for (int i = 0; i < activeTweens.Count; i++)
+        {
+            if (activeTweens[i].Target == target) return true;
+        }
+        return false;
     }
 
-    public void AddTween(Transform target, Vector3 startPos, Vector3 endPos, float duration)
+    public bool AddTween(Transform target, Vector3 startPos, Vector3 endPos, float duration, float startTime = -1f)
     {
-        if (activeTween == null)
-        {
-            activeTween = new Tween(target, startPos, endPos, Time.time, duration);
-        }
+        if (TweenExists(target)) return false;
+        float start = startTime < 0f ? Time.time : startTime;
+        activeTweens.Add(new Tween(target, startPos, endPos, start, duration));
+        return true;
     }
 
     void Update()
     {
-        if (activeTween == null) return;
-
-        float t = (Time.time - activeTween.StartTime) / activeTween.Duration;
-
-        if (t >= 1f)
+        for (int i = activeTweens.Count - 1; i >= 0; i--)
         {
-            activeTween.Target.position = activeTween.EndPos;
-            activeTween = null;
-        }
-        else
-        {
-            activeTween.Target.position = Vector3.Lerp(activeTween.StartPos, activeTween.EndPos, t);
+            Tween tween = activeTweens[i];
+            if (tween.Target == null)
+            {
+                activeTweens.RemoveAt(i);
+                continue;
+            }
+
+            float t = (Time.time - tween.StartTime) / tween.Duration;
+            if (t >= 1f)
+            {
+                tween.Target.position = tween.EndPos;
+                activeTweens.RemoveAt(i);
+            }
+            else
+            {
+                tween.Target.position = Vector3.Lerp(tween.StartPos, tween.EndPos, t);
+            }
         }
     }
 }

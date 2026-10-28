@@ -17759,6 +17759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c804f30896248899142e3632c8e7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeIcons: []
 --- !u!4 &1435441136
 Transform:
   m_ObjectHideFlags: 0
